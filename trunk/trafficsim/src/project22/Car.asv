@@ -43,19 +43,17 @@ cars(LOK,:) = cars(LOK,:) + cars(VIT,:);
 cars
 % Drawing cars
 for i=1:2
-   if (i == 2) 
-       cars(LOK,:) = cars(LOK,:) + cars(VIT,:);
+   if (i = 1) cars(LOK,:) = cars(LOK,:) + cars(VIT,:);
    end
     for i=1:5
         LoK = cars(LOK, i)
         rectangle('Position', [LoK, 0, LoC, WoC])
     end
-end 
+end
 
 
 % Follow-the-leader model
 
-WoC = 10; % The width of a car
 dt = 1/10; %dt dus.
 LoC = 20; % The length of a car
 NoC = 100; % The number of cars

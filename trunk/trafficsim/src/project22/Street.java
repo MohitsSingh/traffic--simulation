@@ -11,7 +11,6 @@ import java.awt.geom.Arc2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -38,7 +37,7 @@ public class Street {
         this.length = length;
     }
 
-    // constructor for a corner (angle integer included)
+    // constructor for a corner (angle and start angle integer included)
     public Street(int var, int x, int y, int start, int angle){
         this.x = x;
         this.y = y;
