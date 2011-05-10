@@ -53,9 +53,9 @@ for i=1:1000
 
     roadMatrix(roadMatrix(:, 9) < 0, 9) = 0; % making sure that the cars don't go backwards when they've reached standstill
 
-    %x = rectangle('Position',[position,0,L,1]);
+    xrectangle('Position',[position,0,L,1]);
     
-    plot(position, 0, 's'); % plot van links naar rechts
+    plot(position, 0, '*'); % plot van links naar rechts
 %     hold on
 %     plot(0, position, '*'); % plot van onder naar boven
 %     hold on

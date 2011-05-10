@@ -6,11 +6,16 @@
 package project22;
 
 import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.geom.Arc2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
+import java.awt.geom.RoundRectangle2D;
+import javax.swing.JComponent;
 
 /**
  *
@@ -29,6 +34,12 @@ public class Street {
     private final int WIDTH_STREET = 50;
     private final int LENGTH_MIDLINE = 5;
     private static final int OPEN = 0;// angle property
+
+   //dashed mid line
+    private float[] dashPattern = { 10, 5, 10, 5 };
+    
+   // private int[][] road;
+
    
     public Street(int var, int x, int y, int length){
         this.x = x;
@@ -59,13 +70,13 @@ public class Street {
             Line2D.Double rightSide = new Line2D.Double(a3,a4);
             g2.draw(rightSide);
 
-            for(int i=0; i<length; i++){
-                Point2D.Double d1 = new Point2D.Double(x + (WIDTH_STREET/2), y + i );
-                Point2D.Double d2 = new Point2D.Double(x + (WIDTH_STREET/2), y + i + LENGTH_MIDLINE);
-                Line2D.Double midLine = new Line2D.Double(d1,d2);
-                g2.draw(midLine);
-                i = i + LENGTH_MIDLINE + 6;
-            }
+            float dash1[] = {10.0f};
+            Line2D.Double realMidLine = new Line2D.Double(new Point2D.Double(x+ WIDTH_STREET/2,y ), new Point2D.Double(x+ WIDTH_STREET/2, y+ length));
+            g2.setStroke(new BasicStroke(1, BasicStroke.CAP_BUTT,
+                                  BasicStroke.JOIN_MITER, 10,
+                                  dashPattern, 0));
+            g2.draw(realMidLine);
+            g2.setStroke(new BasicStroke());
         }
         else if(var == 2){
             Point2D.Double c1 = new Point2D.Double(x, y);
@@ -77,13 +88,14 @@ public class Street {
             Line2D.Double lowerSide = new Line2D.Double(b3,b4);
             g2.draw(lowerSide);
 
-            for(int i=0; i<length; i++){
-                Point2D.Double d1 = new Point2D.Double(x + i, y + (WIDTH_STREET/2) );
-                Point2D.Double d2 = new Point2D.Double(x + i + LENGTH_MIDLINE, y + (WIDTH_STREET/2));
-                Line2D.Double midLine = new Line2D.Double(d1,d2);
-                g2.draw(midLine);
-                i = i + LENGTH_MIDLINE + 6;
-            }
+            float dash1[] = {10.0f};
+            Line2D.Double realMidLine = new Line2D.Double(new Point2D.Double(x,y + WIDTH_STREET/2), new Point2D.Double(x+length, y + WIDTH_STREET/2));
+            g2.setStroke(new BasicStroke(1, BasicStroke.CAP_BUTT,
+                                  BasicStroke.JOIN_MITER, 10,
+                                  dashPattern, 0));
+            g2.draw(realMidLine);
+            g2.setStroke(new BasicStroke());
+            
         }
         else if(var == 3){
             Ellipse2D.Double circle = new Ellipse2D.Double(x,y,length,length);
@@ -91,8 +103,6 @@ public class Street {
             Ellipse2D.Double innerCircle = new Ellipse2D.Double(x+WIDTH_STREET,y+WIDTH_STREET,length - (WIDTH_STREET*2),length - (WIDTH_STREET*2));
             g2.draw(innerCircle);
 
-            //dashed mid line
-            float[] dashPattern = { 10, 5, 10, 5 };
             g2.setStroke(new BasicStroke(1, BasicStroke.CAP_BUTT,
                                   BasicStroke.JOIN_MITER, 10,
                                   dashPattern, 0));
@@ -114,13 +124,14 @@ public class Street {
             Line2D.Double leftUnderSide = new Line2D.Double(f1,f2);
             g2.draw(leftUnderSide);
 
-            for(int i=0; i<(length - WIDTH_STREET)/2; i++){
-                Point2D.Double d1 = new Point2D.Double(x + i, y + (length - WIDTH_STREET)/2+ (WIDTH_STREET/2) );
-                Point2D.Double d2 = new Point2D.Double(x + i + LENGTH_MIDLINE, y + (length - WIDTH_STREET)/2+(WIDTH_STREET/2));
-                Line2D.Double midLine = new Line2D.Double(d1,d2);
-                g2.draw(midLine);
-                i = i + LENGTH_MIDLINE + 6;
-            }
+             Line2D.Double realMidLine7 = new Line2D.Double(new Point2D.Double(x, y+(length - WIDTH_STREET)/2 + WIDTH_STREET/2), new Point2D.Double(x + (length - WIDTH_STREET)/2, y + (length - WIDTH_STREET)/2 + WIDTH_STREET/2 ));
+            g2.setStroke(new BasicStroke(1, BasicStroke.CAP_BUTT,
+                                  BasicStroke.JOIN_MITER, 10,
+                                  dashPattern, 0));
+            g2.draw(realMidLine7);
+            g2.setStroke(new BasicStroke());
+
+            
             //upper
             Point2D.Double h1 = new Point2D.Double(x +(length - WIDTH_STREET)/2, y);
             Point2D.Double h2 = new Point2D.Double(x + (length - WIDTH_STREET)/2, y + (length - WIDTH_STREET)/2);
@@ -131,13 +142,13 @@ public class Street {
             Line2D.Double rupperSide = new Line2D.Double(j1,j2);
             g2.draw(rupperSide);
 
-            for(int i=0; i<(length - WIDTH_STREET)/2; i++){
-                Point2D.Double d1 = new Point2D.Double(x +(length - WIDTH_STREET)/2 + WIDTH_STREET/2 , y + i );
-                Point2D.Double d2 = new Point2D.Double(x +(length - WIDTH_STREET)/2 + WIDTH_STREET/2, y + i + LENGTH_MIDLINE);
-                Line2D.Double midLine = new Line2D.Double(d1,d2);
-                g2.draw(midLine);
-                i = i + LENGTH_MIDLINE + 6;
-            }
+            Line2D.Double realMidLine6 = new Line2D.Double(new Point2D.Double(x +(length - WIDTH_STREET)/2 + WIDTH_STREET/2 , y ), new Point2D.Double(x +(length - WIDTH_STREET)/2 + WIDTH_STREET/2 , y + (length - WIDTH_STREET)/2));
+            g2.setStroke(new BasicStroke(1, BasicStroke.CAP_BUTT,
+                                  BasicStroke.JOIN_MITER, 10,
+                                  dashPattern, 0));
+            g2.draw(realMidLine6);
+            g2.setStroke(new BasicStroke());
+           
 
             //right
             Point2D.Double k1 = new Point2D.Double(x +(length - WIDTH_STREET)/2 + WIDTH_STREET, y + (length - WIDTH_STREET)/2);
@@ -149,13 +160,14 @@ public class Street {
             Line2D.Double rightDownSide = new Line2D.Double(l1,l2);
             g2.draw(rightDownSide);
 
-            for(int i=0; i<(length - WIDTH_STREET)/2; i++){
-                Point2D.Double d1 = new Point2D.Double(x +(length - WIDTH_STREET)/2 + WIDTH_STREET + i, y + (length - WIDTH_STREET)/2 + WIDTH_STREET/2 );
-                Point2D.Double d2 = new Point2D.Double(x +(length - WIDTH_STREET)/2 + WIDTH_STREET + i +LENGTH_MIDLINE , y + (length - WIDTH_STREET)/2 + WIDTH_STREET/2 );
-                Line2D.Double midLine = new Line2D.Double(d1,d2);
-                g2.draw(midLine);
-                i = i + LENGTH_MIDLINE + 6;
-            }
+
+            Line2D.Double realMidLine5 = new Line2D.Double(new Point2D.Double(x +(length - WIDTH_STREET)/2 + WIDTH_STREET , y + (length - WIDTH_STREET)/2 + WIDTH_STREET/2), new Point2D.Double(x + length, y + (length - WIDTH_STREET)/2 + WIDTH_STREET/2));
+            g2.setStroke(new BasicStroke(1, BasicStroke.CAP_BUTT,
+                                  BasicStroke.JOIN_MITER, 10,
+                                  dashPattern, 0));
+            g2.draw(realMidLine5);
+            g2.setStroke(new BasicStroke());
+            
 
             //down
             Point2D.Double z1 = new Point2D.Double(x +(length - WIDTH_STREET)/2, y + (length - WIDTH_STREET)/2 + WIDTH_STREET);
@@ -167,13 +179,13 @@ public class Street {
             Line2D.Double dightSide = new Line2D.Double(v1,v2);
             g2.draw(dightSide);
 
-            for(int i=0; i<(length - WIDTH_STREET)/2; i++){
-                Point2D.Double d1 = new Point2D.Double(x +(length - WIDTH_STREET)/2 + WIDTH_STREET/2 , y +(length - WIDTH_STREET)/2 + WIDTH_STREET + i );
-                Point2D.Double d2 = new Point2D.Double(x +(length - WIDTH_STREET)/2 + WIDTH_STREET/2, y +(length - WIDTH_STREET)/2 + WIDTH_STREET + i + LENGTH_MIDLINE);
-                Line2D.Double midLine = new Line2D.Double(d1,d2);
-                g2.draw(midLine);
-                i = i + LENGTH_MIDLINE + 6;
-            }
+            Line2D.Double realMidLine1 = new Line2D.Double(new Point2D.Double(x +(length - WIDTH_STREET)/2 + WIDTH_STREET/2, y + (length - WIDTH_STREET)/2 + WIDTH_STREET), new Point2D.Double(x + (length - WIDTH_STREET)/2 + WIDTH_STREET/2, y + length ));
+            g2.setStroke(new BasicStroke(1, BasicStroke.CAP_BUTT,
+                                  BasicStroke.JOIN_MITER, 10,
+                                  dashPattern, 0));
+            g2.draw(realMidLine1);
+            g2.setStroke(new BasicStroke());
+
 
         }
         else if(var == 5){
@@ -183,9 +195,10 @@ public class Street {
             Arc2D.Double in = new Arc2D.Double(x+ WIDTH_STREET, y + WIDTH_STREET, length/2 , length/2, 0, angle, OPEN);
             in.setAngleStart(start);
             g2.draw(in);
-            //dashed midline
-            float[] dashPattern = { 5, 5, 5, 5 };
-            g2.setStroke(new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10, dashPattern, 0));
+           
+            g2.setStroke(new BasicStroke(1, BasicStroke.CAP_BUTT,
+                                  BasicStroke.JOIN_MITER, 10,
+                                  dashPattern, 0));
             Arc2D.Double mid = new Arc2D.Double(x + (WIDTH_STREET/2), y + (WIDTH_STREET/2), length - WIDTH_STREET, length- WIDTH_STREET, 0, angle, OPEN);
             mid.setAngleStart(start);
             g2.draw(mid);
@@ -204,13 +217,13 @@ public class Street {
             Line2D.Double underLine = new Line2D.Double(v1,v2);
             g2.draw(underLine);
 
-            for(int i=0; i<(length - WIDTH_STREET)/2; i++){
-                Point2D.Double d1 = new Point2D.Double(x + i, y + (WIDTH_STREET/2) );
-                Point2D.Double d2 = new Point2D.Double(x + i + LENGTH_MIDLINE, y + (WIDTH_STREET/2));
-                Line2D.Double midLine = new Line2D.Double(d1,d2);
-                g2.draw(midLine);
-                i = i + LENGTH_MIDLINE + 6;
-            }
+            Line2D.Double realMidLine2 = new Line2D.Double(new Point2D.Double(x ,y + WIDTH_STREET/2), new Point2D.Double(x + (length - WIDTH_STREET)/2, y + WIDTH_STREET/2));
+            g2.setStroke(new BasicStroke(1, BasicStroke.CAP_BUTT,
+                                  BasicStroke.JOIN_MITER, 10,
+                                  dashPattern, 0));
+            g2.draw(realMidLine2);
+            g2.setStroke(new BasicStroke());
+
 
             //down
             Point2D.Double z1 = new Point2D.Double(x +(length - WIDTH_STREET)/2, y + WIDTH_STREET);
@@ -222,13 +235,13 @@ public class Street {
             Line2D.Double dightSide = new Line2D.Double(x1,x2);
             g2.draw(dightSide);
 
-            for(int i=0; i<(length - WIDTH_STREET)/2; i++){
-                Point2D.Double d1 = new Point2D.Double(x +(length - WIDTH_STREET)/2 + WIDTH_STREET/2 , y + WIDTH_STREET + i );
-                Point2D.Double d2 = new Point2D.Double(x +(length - WIDTH_STREET)/2 + WIDTH_STREET/2, y + WIDTH_STREET + i + LENGTH_MIDLINE);
-                Line2D.Double midLine = new Line2D.Double(d1,d2);
-                g2.draw(midLine);
-                i = i + LENGTH_MIDLINE + 6;
-            }
+            Line2D.Double realMidLine4 = new Line2D.Double(new Point2D.Double(x +(length - WIDTH_STREET)/2 + WIDTH_STREET/2,y + WIDTH_STREET), new Point2D.Double(x +(length - WIDTH_STREET)/2 + WIDTH_STREET/2, y + (length - WIDTH_STREET)/2 + WIDTH_STREET));
+            g2.setStroke(new BasicStroke(1, BasicStroke.CAP_BUTT,
+                                  BasicStroke.JOIN_MITER, 10,
+                                  dashPattern, 0));
+            g2.draw(realMidLine4);
+            g2.setStroke(new BasicStroke());
+
 
             //right
             Point2D.Double r1 = new Point2D.Double(x+(length - WIDTH_STREET)/2 + WIDTH_STREET, y + WIDTH_STREET);
@@ -236,13 +249,13 @@ public class Street {
             Line2D.Double rightDownSide = new Line2D.Double(r1,r2);
             g2.draw(rightDownSide);
 
-            for(int i=0; i<(length - WIDTH_STREET)/2; i++){
-                Point2D.Double d1 = new Point2D.Double(x+(length - WIDTH_STREET)/2 + WIDTH_STREET + i, y + WIDTH_STREET/2 );
-                Point2D.Double d2 = new Point2D.Double(x+(length - WIDTH_STREET)/2 + WIDTH_STREET + i +LENGTH_MIDLINE ,y + WIDTH_STREET/2  );
-                Line2D.Double midLine = new Line2D.Double(d1,d2);
-                g2.draw(midLine);
-                i = i + LENGTH_MIDLINE + 6;
-            }
+            Line2D.Double realMidLine3 = new Line2D.Double(new Point2D.Double(x+(length - WIDTH_STREET)/2 + WIDTH_STREET,y + WIDTH_STREET/2), new Point2D.Double(x + length, y  + WIDTH_STREET/2));
+            g2.setStroke(new BasicStroke(1, BasicStroke.CAP_BUTT,
+                                  BasicStroke.JOIN_MITER, 10,
+                                  dashPattern, 0));
+            g2.draw(realMidLine3);
+            g2.setStroke(new BasicStroke());
+
         }
         else{
             System.out.println("error var");
@@ -253,4 +266,7 @@ public class Street {
     }
 
 }
+
+
+
 
